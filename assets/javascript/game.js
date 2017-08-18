@@ -1,68 +1,51 @@
+// We need to make an array with the alphabet for the computer to choose from
+let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+    'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+];
 
-
-var letterIndex = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+// Create variables for our elements shown on the page, wins and losses start at zero upon page load
+// Guesses are the chances a user gets to guess the correct letter, guessed is an empty array we can push our incorrect guesses into
 var wins = 0;
 var losses = 0;
-var reset;
+var guesses = 9;
+var guessed = [];
 
-// main key up function
-document.onkeyup = game;
-function game (event) {
-	var userGuess = event.key
-	console.log(userGuess, document.computerGuess);
-	 if (userGuess === computerGuess) {
-		wins++;
-		reset();
-	}
-	else userGuess !== computerGuess 
-		document.guessesLeft--;
-		document.guessesSoFar.push(userGuess);
-	}
-	if document.guessesLeft === 0 {
-			losses++;
-			reset();
-		}
-	}
-
-
-
-
-	
-//print letters on html file 
-document.querySelector("#wins").innerHTML = wins;
-document.querySelector("#losses").innerHTML = losses;
-document.querySelector("#guessesLeft").innerHTML = document.guessesLeft;
-document.querySelector("#guessesSoFar").innerHTML = document.guessesSoFar.join(",");
+function reset() {
+    guesses = 9;
+    guessed = [];
+    computerChoice = alphabet[Math.floor(Math.random() * alphabet.length)];
 }
-function reset () {
-    document.guessesLeft = 9;
-    document.guessesSoFar = [];
-    document.computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+// We use math.floor and math.random to have the computer choose a letter at random for our user to guess
+let computerChoice = alphabet[Math.floor(Math.random() * alphabet.length)];
+
+console.log(computerChoice)
+
+
+document.onkeypress = function(event) {
+    let userGuess = event.key;
+
+
+    if (userGuess === computerChoice) {
+        wins++;
+        reset();
+    } else if ((userGuess !== computerChoice) && (guesses === 0)) {
+        losses++;
+        reset();
+    }
+    else {
+        guesses--;
+        
+    } 
+    // 
+
+    if (userGuess !== computerChoice && (!guessed.includes(userGuess))) {
+        guessed.push(userGuess);
+    }
+
+    document.getElementById('wins').innerHTML = wins;
+    document.getElementById('losses').innerHTML = losses;
+    document.getElementById('guesses').innerHTML = guesses;
+    document.getElementById('guessed').innerHTML = guessed;
+
 }
 
-// function onKeyUp (event) {
-//     var userGuess = event.key;
-//     console.log (userGuess, document.computerGuess);
-//     if (userGuess === document.computerGuess) {
-//         wins++;
-//         reset();
-//     } else {
-//         document.guessesLeft--;
-//         document.guessesSoFar.push(userGuess);
-//         if (document.guessesLeft === 0) {
-//             losses++;
-//             reset();
-//         }
-//     } 
-    
-//     document.querySelector("#wins").innerHTML = wins;
-//     document.querySelector("#losses").innerHTML = losses;
-//     document.querySelector("#remaining").innerHTML = document.guessesLeft;
-//     document.querySelector("#guessed").innerHTML = document.guessesSoFar.join(",");
-// }
-
-// function reset () {
-//     document.guessesLeft = 9;
-//     document.guessesSoFar = [];
-//     document.computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-// }
