@@ -1,0 +1,12 @@
+body {
+    background-image: url("http://www.sedonawellnessme.com/uploads/9/2/6/3/92634688/s581674811645789230_p3_i11_w1920.jpeg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+
+.well, .jumbotron {
+background-color: gray;
+opacity: 0.8;
+
+}
